@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.microservices.userservice.dto.Bike;
+import com.microservices.userservice.dto.Cart;
 import com.microservices.userservice.entity.UserEntity;
 import com.microservices.userservice.repositiry.UserRepository;
 
@@ -13,6 +16,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository repository;
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@Override
 	public List<UserEntity> findAll() {
@@ -29,4 +34,16 @@ public class UserServiceImpl implements UserService {
 		return repository.save(user);
 	}
 
+	@Override
+	public List<Cart> findCarsByUserId(Integer userId) {
+		List<Cart> carts = restTemplate.getForObject("http://localhost:8002/api/v1/carts/user/"+userId, List.class);
+		return carts;
+	}
+
+	@Override
+	public List<Bike> findBikesByUserId(Integer userId) {
+		List<Bike> bikes = restTemplate.getForObject("http://localhost:8003/api/v1/bikes/user/"+userId, List.class);
+		return bikes;
+	}
+	
 }
