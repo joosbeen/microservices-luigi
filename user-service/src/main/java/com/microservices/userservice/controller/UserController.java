@@ -1,6 +1,7 @@
 package com.microservices.userservice.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +65,35 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 		List<Bike> bikes = userService.findBikesByUserId(userId);
 		return ResponseEntity.ok(bikes);
+	}
+
+	@PostMapping("carts/{userId}")
+	public ResponseEntity<Cart> saveCart(@PathVariable(name = "userId") Integer userId, @RequestBody Cart cart) {
+		UserEntity userEntity = userService.findbyId(userId);
+		if (userEntity == null)
+			return ResponseEntity.notFound().build();
+		cart.setUserId(userId);
+		cart = userService.save(cart);
+		return ResponseEntity.ok(cart);
+	}
+
+	@PostMapping("bikes/{userId}")
+	public ResponseEntity<Bike> saveBike(@PathVariable(name = "userId") Integer userId, @RequestBody Bike bike) {
+		UserEntity userEntity = userService.findbyId(userId);
+		if (userEntity == null)
+			return ResponseEntity.notFound().build();
+		bike.setUserId(userId);
+		bike = userService.save(bike);
+		return ResponseEntity.ok(bike);
+	}
+
+	@GetMapping("vehicles/{userId}")
+	public ResponseEntity<Map<String, Object>> findVehicles(@PathVariable(name = "userId") Integer userId) {
+		UserEntity userEntity = userService.findbyId(userId);
+		if (userEntity == null)
+			return ResponseEntity.notFound().build();
+		Map<String, Object> map = userService.findUserVehicles(userId);
+		return ResponseEntity.ok(map);
 	}
 
 }
