@@ -10,6 +10,6 @@ spring:
       server:
         git:
           default-label: 05-eureka
-          uri: https://github.com/joosbeen/microservices-luigi
+          uri: https://github.com/joosbeen/microservices-luigi.git
           search-paths:
           - config-data
