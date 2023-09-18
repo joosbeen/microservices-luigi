@@ -1,0 +1,14 @@
+
+server:
+  port: 8081
+spring:
+  application:
+    name: config-services
+  cloud:
+    config:
+      server:
+        git:
+          default-label: 04-config-server
+          uri: file:///D:/cursos/spring boot/microservices/luigui
+          search-paths:
+          - config-data
