@@ -104,20 +104,24 @@ public class UserController {
 		return ResponseEntity.ok(map);
 	}
 	
-	private ResponseEntity<Cart> fallbackSaveCart(@PathVariable(name = "userId") Integer userId, @RequestBody Cart cart) {
+	private ResponseEntity<Cart> fallbackSaveCart(@PathVariable(name = "userId") Integer userId, @RequestBody Cart cart, RuntimeException exception) {
 		return new ResponseEntity("Error al guardar el auto.", HttpStatus.OK);
 	}
 	
-	private ResponseEntity<?> fallbackFindCarsByUserId(@PathVariable(name = "userId") Integer userId) {
+	private ResponseEntity<?> fallbackFindCarsByUserId(@PathVariable(name = "userId") Integer userId, RuntimeException exception) {
 		return new ResponseEntity("Error al buscar los autos del usuario.", HttpStatus.OK);
 	}
 
-	private ResponseEntity<Bike> fallbackSaveBike(@PathVariable(name = "userId") Integer userId, @RequestBody Bike bike) {
+	private ResponseEntity<Bike> fallbackSaveBike(@PathVariable(name = "userId") Integer userId, @RequestBody Bike bike, RuntimeException exception) {
 		return new ResponseEntity("Error al guardar la motocicleta.", HttpStatus.OK);
 	}
 	
-	public ResponseEntity<?> fallbackFindBikesByUserId(@PathVariable(name = "userId") Integer userId) {
+	public ResponseEntity<?> fallbackFindBikesByUserId(@PathVariable(name = "userId") Integer userId, RuntimeException exception) {
 		return new ResponseEntity("Error al buscar las motocicletas del usuario.", HttpStatus.OK);
+	}
+
+	public ResponseEntity<Map<String, Object>> fallbackFindVehicles(@PathVariable(name = "userId") Integer userId, RuntimeException exception) {
+		return new ResponseEntity("Error al buscar las vehiculos del usuario.", HttpStatus.OK);
 	}
 
 }
