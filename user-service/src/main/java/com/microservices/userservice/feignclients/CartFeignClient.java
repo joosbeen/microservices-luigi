@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.microservices.userservice.dto.Cart;
 
 
-@FeignClient(name = "cart-service", path = "/api/v1/carts", url = "http://localhost:8002")
+@FeignClient(name = "cart-service")
 //@RequestMapping("/api/v1/carts")
 public interface CartFeignClient {
 	
