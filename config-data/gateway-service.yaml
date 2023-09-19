@@ -28,6 +28,6 @@ spring:
       - id: bike-service
         uri: lb://bike-service
         predicates:
-        - Path=/api/v1/bikes,/api/v1/bikes/**
+        - Path=/bikes
 
         
