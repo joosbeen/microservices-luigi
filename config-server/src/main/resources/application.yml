@@ -7,6 +7,6 @@ spring:
     config:
       server:
         git:
-          default-label: 05-eureka
+          default-label: 06-multi-instances
           uri: https://github.com/joosbeen/microservices-luigi.git
           search-paths: config-data
