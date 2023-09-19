@@ -16,7 +16,7 @@ import com.microservices.bikeservice.service.BikeService;
 
 
 @RestController
-@RequestMapping("/bikes")
+@RequestMapping("/api/v1/bikes")
 public class BikeController {
 	
 	@Autowired
