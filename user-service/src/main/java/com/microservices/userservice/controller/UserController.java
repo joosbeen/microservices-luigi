@@ -3,6 +3,8 @@ package com.microservices.userservice.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
+	
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
@@ -53,7 +57,7 @@ public class UserController {
 	}
 
 	@CircuitBreaker(name = "cartsCB", fallbackMethod = "fallbackSaveCart")
-	@PostMapping("carts/{userId}")
+	@PostMapping("/carts/{userId}")
 	public ResponseEntity<Cart> saveCart(@PathVariable(name = "userId") Integer userId, @RequestBody Cart cart) {
 		UserEntity userEntity = userService.findbyId(userId);
 		if (userEntity == null)
@@ -105,22 +109,27 @@ public class UserController {
 	}
 	
 	private ResponseEntity<Cart> fallbackSaveCart(@PathVariable(name = "userId") Integer userId, @RequestBody Cart cart, RuntimeException exception) {
+		log.error(exception.getMessage());
 		return new ResponseEntity("Error al guardar el auto.", HttpStatus.OK);
 	}
 	
 	private ResponseEntity<?> fallbackFindCarsByUserId(@PathVariable(name = "userId") Integer userId, RuntimeException exception) {
+		log.error(exception.getMessage());
 		return new ResponseEntity("Error al buscar los autos del usuario.", HttpStatus.OK);
 	}
 
 	private ResponseEntity<Bike> fallbackSaveBike(@PathVariable(name = "userId") Integer userId, @RequestBody Bike bike, RuntimeException exception) {
+		log.error(exception.getMessage());
 		return new ResponseEntity("Error al guardar la motocicleta.", HttpStatus.OK);
 	}
 	
 	public ResponseEntity<?> fallbackFindBikesByUserId(@PathVariable(name = "userId") Integer userId, RuntimeException exception) {
+		log.error(exception.getMessage());
 		return new ResponseEntity("Error al buscar las motocicletas del usuario.", HttpStatus.OK);
 	}
 
 	public ResponseEntity<Map<String, Object>> fallbackFindVehicles(@PathVariable(name = "userId") Integer userId, RuntimeException exception) {
+		log.error(exception.getMessage());
 		return new ResponseEntity("Error al buscar las vehiculos del usuario.", HttpStatus.OK);
 	}
 

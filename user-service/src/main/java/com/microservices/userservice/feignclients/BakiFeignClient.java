@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.microservices.userservice.dto.Bike;
 
 
-@FeignClient(name = "bike-service")
+@FeignClient(name = "bike-service", path = "/api/v1/bikes")
 public interface BakiFeignClient {
 
 	@PostMapping()
