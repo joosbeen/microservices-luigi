@@ -21,6 +21,8 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/api/v1/users/**
+          filters:
+            - AuthFilter
         - id: cart-service
           uri: lb://cart-service
           predicates:
