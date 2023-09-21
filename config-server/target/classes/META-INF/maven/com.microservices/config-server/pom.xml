@@ -5,8 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.8</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.7.15</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.microservices</groupId>
 	<artifactId>config-server</artifactId>
@@ -22,7 +22,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -40,7 +43,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -49,5 +51,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
